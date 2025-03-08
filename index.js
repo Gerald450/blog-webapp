@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    list.push(req.body);
+    list.push({title: req.body['title'], des: req.body['des']});
     res.render('index.ejs', {listy: list,})
 });
 

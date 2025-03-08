@@ -8,13 +8,12 @@
   </head>
   <body>
     <div class="title-div">
-       
-
       <div class="form-popup" id="myForm">
         <form action="/" class="form-container" method="post">
           <h1>New Post</h1>
 
           <label for="title"><b>Title</b></label> <br />
+          <input type="hidden" name="index" class="hidden-input" />
           <input
             class="title-input"
             type="text"
@@ -35,7 +34,7 @@
           ></textarea>
           <br />
 
-          <button type="submit" class="btn">Submit</button>
+          <button type="submit" class="btn btn-submit">Submit</button>
           <button
             type="close"
             class="btn"
@@ -47,7 +46,13 @@
       </div>
 
       <h1 class="title">Welcome!</h1>
-      <input class="search" type="text"  id="search-bar" placeholder="Search" onkeyup="searchFunction()" />
+      <input
+        class="search"
+        type="text"
+        id="search-bar"
+        placeholder="Search"
+        onkeyup="searchFunction()"
+      />
 
       <button
         class="btn-create btn"
@@ -59,119 +64,86 @@
 
     <div class="posts">
       <div id="inner">
-        <div class="posts-title"><h2><u>Your Posts</u></h2></div>
+        <div class="posts-title">
+          <h2><u>Your Posts</u></h2>
+        </div>
         <div class="empty"></div>
 
         <% if (locals.listy){ %> <% var l = listy %> <% len = listy.length - 1
         %> <%for (var i = len; i >= 0; i--){ %> <% let cName = "inner-post" +
-        i%> 
-        <div id="inner-post" class="<%=cName%> inner-post"
-          >
-        <div class="h3p" >
-          <h3><u><em><%=listy[i].title%></em></u></h3>
-          <p><%=listy[i].des%></p>
-          <% let formName = 'updateForm' + i  %>
-
-        </div>
-
-        
+        i%>
+        <div
+          id="inner-post"
+          class="<%=cName%> inner-post"
+          my_title="<%=listy[i].title%>"
+          my_des="<%=listy[i].des%>"
+        >
+          <div class="h3p">
+            <h3>
+              <u><em><%=listy[i].title%></em></u>
+            </h3>
+            <p><%=listy[i].des%></p>
+            <% let formName = 'updateForm' + i %>
+          </div>
 
           <div class="div-btns">
-            <button
-              id= <%=i%>
-              type="update"
-              class="btn-update btn"
-            >
-              Update
+            <button id="<%=i%>"
+              type="update" class="btn-update btn"> Update
             </button>
 
-            
-          
             <form action="/delete" method="POST">
-              <input type="hidden" name="index" value=<%=i%> />
+              <input type="hidden" name="index" value="<%=i%>" />
               <input type="submit" class="btn" value="Delete" />
             </form>
           </div>
         </div>
-        <div class="form-popup" id= <%=formName%>>
-            <form action="/update" class="form-container" method="POST">
-              <h1>Update Post</h1>
-              <label for="title"><b>Title</b></label> <br />
-              <input
-                class="title-input"
-                type="text"
-                placeholder="Enter Title"
-                name="title"
-                value= "<%=listy[i]['title']%>"
-    
-              />
-              <input type="hidden" name="index" value=<%=i%> />
-              <br />
-              
-              <label for="des"><b>Description</b></label> <br />
-              <textarea
-                class="des-input"
-                name="des"
-                rows="7"
-                columns="50"
-            
-                placeholder="Enter Description"
-              ><%=listy[i].des%></textarea>
-              <br />
-   
-              <button type="submit" class="btn-submit btn">Submit</button>
-              <button
-                type="close"
-                class="btn"
-                onclick="document.getElementById('updateForm').style.display='none';"
-              >
-                Close
-              </button>
-            </form>
-          </div>
- 
- 
-        
+
         <% }}; %>
       </div>
     </div>
     <script>
+      let btns = document.querySelectorAll(".btn-update");
 
-        let btns = document.querySelectorAll('.btn-update')
-         
-        btns.forEach(btn =>{
-         btn.addEventListener('click', (e)=>{
-             let need = 'updateForm' + e.target.id ;
-             console.log(need)
-             document.getElementById(need).style.display = 'block';
-             
-        })  
+      btns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const id = e.target.id;
+          const inner_post_name = "inner-post" + id;
+          const inner_post = document.getElementsByClassName(inner_post_name);
+          const title = inner_post[0].getAttribute("my_title");
+          const des = inner_post[0].getAttribute("my_des");
+          document
+            .getElementsByClassName("form-container")[0]
+            .getElementsByTagName("h1")[0].textContent = "Update-Post";
+          document.getElementsByClassName("title-input")[0].value = title;
+          document
+            .getElementsByClassName("form-container")[0]
+            .getElementsByTagName("textarea")[0].textContent = des;
+          document
+            .getElementsByClassName("form-container")[0]
+            .setAttribute("action", "/update");
+          document.getElementsByClassName("btn-submit")[0].textContent =
+            "Update";
+          document.getElementsByClassName("hidden-input")[0].value = id;
+          document.getElementById("myForm").style.display = "block";
+        });
+      });
 
-     })
-
-
-     function searchFunction(){
+      function searchFunction() {
         var input, filter, div, h3, txtValue;
-        input = document.getElementById('search-bar');
+        input = document.getElementById("search-bar");
         filter = input.value.toUpperCase();
-        div = document.getElementsByClassName('inner-post');
-       
-        
-        for (let i = 0; i < div.length; i++){
-            h3 = div[i].getElementsByTagName('h3')[0];
-            txtValue = h3.textContent || h3.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1){
-                div[i].style.display = '';
-            } else {
-                div[i].style.display = "none";
-            }
+        div = document.getElementsByClassName("inner-post");
+
+        for (let i = 0; i < div.length; i++) {
+          h3 = div[i].getElementsByTagName("h3")[0];
+          txtValue = h3.textContent || h3.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            div[i].style.display = "";
+          } else {
+            div[i].style.display = "none";
+          }
         }
-
-     }
-
- </script>
-    
-    
-    
+      }
+    </script>
   </body>
 </html>
