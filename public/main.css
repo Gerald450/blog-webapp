@@ -1,0 +1,134 @@
+body{
+    background-color: #ebf5ff;
+}
+
+#myForm{
+    background-color: skyblue;
+    width: 70%;
+    height: 70vh;
+    padding: 10px;
+    border: 10px solid black;
+    z-index: auto;
+    top: 100px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn{
+    border-radius: 5px;
+    background-color: azure;
+}
+
+
+.title-input{
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.des-input{
+    width: 90%;
+    margin-bottom: 20px;
+    height: 300px
+}
+
+.title-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-size: 78pt;
+    margin-bottom: 0;
+    margin-top: 12px;
+    font-family: 'Text-Regular', sans-serif;
+}
+
+.search{
+    border-radius: 10px;
+    width: 30%;
+    margin-bottom: 30px;
+}
+
+.btn-create{
+    margin-bottom: 30px;
+    width: 100px;
+}
+
+.posts{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#inner{
+    width: 70%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+}
+
+h3{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+
+#inner-post{
+    background-color: skyblue;
+    border: 10px solid rgb(8, 6, 3);
+    padding: 10px;
+    border-radius: 10px;
+    font-family: 'Text-Regular', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.div-btns{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Text-Regular', sans-serif;
+    height: 100%;
+    align-items: end;
+}
+
+.btn-update{
+    margin-right: 5px;
+    font-family: 'Text-Regular', sans-serif;
+}
+
+#updateForm{
+    background-color: skyblue;
+    width: 70%;
+    height: 70vh;
+    padding: 10px;
+    border: 10px solid black;
+    z-index: auto;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form-popup{
+    background-color: silver;
+    width: 70%;
+    height: 70vh;
+    padding: 10px;
+    border: 10px solid black;
+    z-index: auto;
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
